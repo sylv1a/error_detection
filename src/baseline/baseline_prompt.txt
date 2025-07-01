@@ -1,0 +1,33 @@
+You will be given a report that has two parts divided by \ which are basically the findings and the impression section.
+Your task is to go through both sections of the report and detect if there are any inconsistencies between the two sections such that
+the report seems incongruent and implausible with respect to the given error. 
+
+Errors to be detected - 
+1. Incorrect date entries: The dates which are not in correct format eg 22.23.2025 or 1012.2024 . 
+
+2.  Mistakes in units of measurement eg using meters instead of centimeters.
+
+3. Contradiction errors: These may include; (i) side confusion (eg, right instead of left, lateral instead of medial), when one side of a body part or device is mentioned in
+the findings but the impressions has a different side of the same body part or device; (ii) omission errors eg presence of pneumonia in the findings section but no mention of 
+pnemonia in the impression; (iii) insertion errors eg no fracture in findings but a fracture in impression. Note to only take into account direct and clear 
+contradictions. If there is mention of a side of a body part or device in only one part of the report and not in the other part of the report 
+then it should be ignored as it does not prove direct contradiction.
+
+You must always return a valid JSON.
+Output the result within output tags in given format - 
+JSON:
+<output>
+[{
+    "error_index" : index of error (starting from 1),
+    "error_label" : 1 if error is detected, 0 if no error,
+    "error_type" : type of error,
+    "error_type_label" : classification of the type of error (0 for no error, 1 for incorrect date, 2 for mistakes in measuring units, 6 for contradiction),
+    "error_location": where the error is in the report. Explain in one line with mentions for both the findings versus impression part. If label is 0 return empty strings "",
+    "error_reason": Why is it an error. If label is 0 return empty strings
+    "findings_sentence": complete findings sentence where the error is present,
+    "impression_sentence": complete impression sentence where the error is present
+}]
+</output>
+
+REPORT :
+<report>
